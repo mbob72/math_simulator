@@ -3,8 +3,8 @@ import {Button, MenuItem, TextField} from "@mui/material";
 import React, {useState} from "react";
 import {Actions} from "@/components/Actions";
 
-type PresetProps = { values: unknown, handlers: any, } & ({ makePreset?: () => {} } | { deleteItem: (a: number) => {}; num: number })
-export const Preset = ({ values, handlers, makePreset, deleteItem, num }: PresetProps) => {
+type PresetProps = { values: unknown, handlers: any, } & ({ makePreset?: () => {} } | { deleteItem: (a: number) => {}; num: number; setUp: (a: number) => {} })
+export const Preset = ({ values, handlers, makePreset, deleteItem, num, setUp }: PresetProps) => {
     return (
         <Grid container spacing={2}>
             <Grid xs={3}>
@@ -24,6 +24,9 @@ export const Preset = ({ values, handlers, makePreset, deleteItem, num }: Preset
                         <Button onClick={() => {
                             deleteItem(num);
                         }}>Delete</Button>
+                        <Button onClick={() => {
+                            setUp(num);
+                        }}>Set Up</Button>
                     </div>
                 }
             </Grid>

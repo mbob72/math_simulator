@@ -1,8 +1,9 @@
 import {styled} from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {usePresets} from "@/components/preset.hooks";
 import {Preset} from "@/components/Preset";
+import {PresetsContext} from "@/components/presets.context";
 
 const Item = styled(Paper)(({theme}) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -14,39 +15,18 @@ const Item = styled(Paper)(({theme}) => ({
 
 export const Presets = () => {
 
-    const onChange = e => console.log(e.target.value);
-
     const {
-        min,
-        max,
-        action,
-        setMin,
-        setMax,
-        setAction,
-        makePreset,
         deleteItem,
         setIMin,
         setIMax,
+        setIUp,
         setIAction,
         list
-    } = usePresets()
+    } = useContext(PresetsContext);
 
     return (
         <>
             <h1>Preset</h1>
-            <Preset
-                values={{
-                    min,
-                    max,
-                    action
-                }}
-                handlers={{
-                    setMin,
-                    setMax,
-                    setAction
-                }}
-                makePreset={makePreset}
-            />
             {list.length &&
                 list.map(({
                               min,
@@ -68,6 +48,7 @@ export const Presets = () => {
                         }}
                         num={i}
                         deleteItem={deleteItem}
+                        setUp={setIUp}
                     />
                 ))}
             </>
