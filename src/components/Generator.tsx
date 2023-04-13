@@ -15,7 +15,8 @@ export const Generator = ({ list, current }) => {
         makePreset,
         examples,
         generate,
-        setNum1, setNum2, _setAction, deleteExample
+        setNum1, setNum2, _setAction, deleteExample,
+        startLesson
     } = useContext(PresetsContext);
 
     return (
@@ -36,15 +37,13 @@ export const Generator = ({ list, current }) => {
             />
             <Button onClick={generate} >Generate</Button>
             {examples.length && examples.map((a, i) => {
-                console.log(a)
                 const [mn1, mn2, res, action] = a;
                 return (
                     <Example key={i} {...{ num1: mn1, num2: mn2, action, result: res, setNum1: setNum1(i), setNum2: setNum2(i), setAction: _setAction(i), deleteExample: deleteExample(i) }} />
                 )
             })
             }
+            {examples.length && (<Button onClick={startLesson}>Start new lesson</Button>)}
         </>
-
-
     )
 }

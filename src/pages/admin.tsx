@@ -5,6 +5,10 @@ import Grid from '@mui/material/Unstable_Grid2';
 import {Presets} from "@/components/Presets";
 import {PresetsWrapper} from "@/components/presets.context";
 import {Generator} from "@/components/Generator";
+import {Lesson} from "@/components/Lesson";
+import {Students} from "@/components/Students";
+
+
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -24,7 +28,10 @@ export default function Home() {
                     <Generator />
                 </Grid>
                 <Grid xs={12} md={4}>
-                    <Item>Lessons</Item>
+                    <Lesson />
+                </Grid>
+                <Grid xs={12} md={4}>
+                    <Students />
                 </Grid>
             </Grid>
         </PresetsWrapper>
