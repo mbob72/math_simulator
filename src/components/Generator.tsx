@@ -1,18 +1,10 @@
-import React, {useContext, useState} from "react";
-import {Button, MenuItem, TextField} from "@mui/material";
+import React, {useContext} from "react";
+import {Button} from "@mui/material";
 import {PresetsContext} from "@/components/presets.context";
-import {Preset} from "@/components/Preset";
 import {Example} from "@/components/Example";
 
-export const Generator = ({ list, current }) => {
+export const Generator = () => {
     const {
-        min,
-        max,
-        action,
-        setMin,
-        setMax,
-        setAction,
-        makePreset,
         examples,
         generate,
         setNum1, setNum2, _setAction, deleteExample,
@@ -21,21 +13,8 @@ export const Generator = ({ list, current }) => {
 
     return (
         <>
-            <h3 >Please choose preset</h3>
-            <Preset
-                values={{
-                    min,
-                    max,
-                    action
-                }}
-                handlers={{
-                    setMin,
-                    setMax,
-                    setAction
-                }}
-                makePreset={makePreset}
-            />
             <Button onClick={generate} >Generate</Button>
+            {examples.length && (<Button onClick={startLesson}>Produce new lesson</Button>)}
             {examples.length && examples.map((a, i) => {
                 const [mn1, mn2, res, action] = a;
                 return (
@@ -43,7 +22,6 @@ export const Generator = ({ list, current }) => {
                 )
             })
             }
-            {examples.length && (<Button onClick={startLesson}>Start new lesson</Button>)}
         </>
     )
 }

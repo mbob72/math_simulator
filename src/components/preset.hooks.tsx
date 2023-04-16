@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 
 
 export const usePresets = () => {
@@ -70,21 +70,21 @@ export const usePresets = () => {
     }
 
     const setNum1 = i => ( { target: { value: aa }}) => {
-        const [a, b, _, action] = examples[i];
+        const [_a, b, _, action] = examples[i];
         setExamples(exs => {
             exs.splice(i, 1, makeRes(aa, b, action));
             return [...exs];
         });
     }
     const setNum2 = i => ( { target: { value: bb }})=> {
-        const [a, b, _, action] = examples[i];
+        const [a, _b, _, action] = examples[i];
         setExamples(exs => {
             exs.splice(i, 1, makeRes(a, bb, action));
             return [...exs];
         });
     }
     const __setAction = i => ( aaction ) => {
-        const [a, b, _, action] = examples[i];
+        const [a, b, _, _action] = examples[i];
         setExamples(exs => {
             exs.splice(i, 1, makeRes(a, b, aaction));
             return [...exs];
@@ -94,10 +94,10 @@ export const usePresets = () => {
         setExamples(exs => [...exs.slice(0, i), ...exs.slice(i +1)])
     }
 
-    const [lesson, setLesson] = useState([]);
+    const [lessons, setLesson] = useState([]);
 
     const startLesson = () => {
-        setLesson(examples.map((example, i) => ({
+        setLesson(lessons.concat([examples.map((example, i) => ({
             example,
             status: {
                 id: i,
@@ -105,7 +105,7 @@ export const usePresets = () => {
                 done: false,
                 correct: false
             }
-        })))
+        }))]))
     }
 
     const [students, setStudents] = useState([{
@@ -158,7 +158,7 @@ export const usePresets = () => {
         list,
         setNum1, setNum2, _setAction: __setAction, deleteExample,
         startLesson,
-        lesson,
+        lessons,
         students,
         setInLesson
     }
