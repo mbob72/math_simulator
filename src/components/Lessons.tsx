@@ -4,12 +4,12 @@ import { AgGridReact } from 'ag-grid-react';
 import Grid from "@mui/material/Unstable_Grid2";
 
 const common = [
-    { field: 'id', headerName: '№', width: 20 },
-    { field: 'example', headerName: 'Example', width: 160, cellRenderer: ({ value: [a, b, _, act]} ) => (
+    { field: 'id', headerName: '№', width: 20, pinned: 'left' },
+    { field: 'example', headerName: 'Example', width: 160, pinned: 'left', cellRenderer: ({ value: [a, b, _, act]} ) => (
             <><span>{a}</span> <span>{act}</span> <span>{b}</span> <span>=</span> <span>?</span></>
         )
     },
-    { field: 'result', headerName: 'Result', type: 'number', width: 80 },
+    { field: 'result', headerName: 'Result', type: 'number', width: 80, pinned: 'left'  },
 ];
 
 const forStudent = { field: 'answer', headerName: 'Res., if shown, time', type: 'number', width: 200,
@@ -38,9 +38,6 @@ export const Lessons = () => {
             headerName: st.name + ':: ' + forStudent.headerName,
         }
     }))
-    console.log(students)
-
-
 
     return (
         <Grid className={'overflow-scroll'}>
@@ -48,7 +45,7 @@ export const Lessons = () => {
 
             {lessons.length && lessons.map((lesson, i) =>
                 <div key={i}
-                     style={{ height: (lesson.length + 1) * 41 + 19, width: '900px', marginBottom: '50px' }}
+                     style={{ height: (lesson.length + 1) * 41 + 19, width: '100%', maxWidth: '880px', marginBottom: '50px' }}
                      className="ag-theme-alpine"
                 >
                 <AgGridReact
