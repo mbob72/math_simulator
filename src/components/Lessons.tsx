@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
-import {PresetsContext} from "@/components/presets.context";
-import { AgGridReact } from 'ag-grid-react';
+import {StateContext} from "@/components/stateContext";
 import Grid from "@mui/material/Unstable_Grid2";
+import {Lesson} from "@/components/Lesson";
 
 const common = [
     { field: 'id', headerName: '№', width: 20, pinned: 'left' },
@@ -20,18 +20,11 @@ const forStudent = { field: 'answer', headerName: 'Res., if shown, time', type: 
                 <span>{response}</span><input className={'h-4'} type={'checkbox'} checked={isShown} /><span>{time}</span>
             </div>
     }
-const fakeAnswers = (students, example) => students.reduce((memo, { name }, i) => ({
-    ...memo,
-    ['answer' + name]: {
-        response: i % 2 ? example[2] : example[2] + 3,
-        isShown: !!(i % 2),
-        time: i + 45
-    }}), {})
+
 export const Lessons = () => {
-    const {  lessons, students } = useContext(PresetsContext);
+    const {  lessons, students } = useContext(StateContext);
 
     const columns = common.concat(students.map((st) => {
-
         return {
             ...forStudent,
             field: forStudent.field + st.name,
@@ -42,21 +35,7 @@ export const Lessons = () => {
     return (
         <Grid className={'overflow-scroll'}>
             <h3 >Lessons</h3>
-
-            {lessons.length && lessons.map((lesson, i) =>
-                <div key={i}
-                     style={{ height: (lesson.length + 1) * 41 + 19, width: '100%', maxWidth: '880px', marginBottom: '50px' }}
-                     className="ag-theme-alpine"
-                >
-                <AgGridReact
-                    rowData={lesson.map(( { example }, i) => ({
-                        id: i, example,
-                        result: example[2],
-                        ...fakeAnswers(students, example)
-                    }))}
-                    columnDefs={columns}
-                />
-                </div>)}
+            {lessons.length && lessons.map((lesson, i) => <Lesson key={i} {...{ lesson, columns, students }} />)}
         </Grid>
     )
 }

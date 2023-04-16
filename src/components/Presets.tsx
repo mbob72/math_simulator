@@ -1,9 +1,8 @@
 import React, {useContext} from "react";
 import {Preset} from "@/components/Preset";
-import {PresetsContext} from "@/components/presets.context";
+import {StateContext} from "@/components/stateContext";
 
 export const Presets = () => {
-
     const {
         min,
         max,
@@ -18,8 +17,7 @@ export const Presets = () => {
         setIUp,
         setIAction,
         list
-    } = useContext(PresetsContext);
-
+    } = useContext(StateContext);
     return (
         <>
             <h3 >Generator preset</h3>

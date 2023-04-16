@@ -1,6 +1,6 @@
 import Grid from '@mui/material/Unstable_Grid2';
 import {Presets} from "@/components/Presets";
-import {PresetsWrapper} from "@/components/presets.context";
+import {StateWrapper} from "@/components/stateContext";
 import {Generator} from "@/components/Generator";
 import {Lessons} from "@/components/Lessons";
 import {Students} from "@/components/Students";
@@ -11,7 +11,7 @@ import "ag-grid-enterprise";
 
 export default function Home() {
     return (
-        <PresetsWrapper >
+        <StateWrapper >
             <Grid container spacing={2}>
                 <Grid xs={12} md={8}>
                     <Lessons />
@@ -26,6 +26,6 @@ export default function Home() {
                     <Generator />
                 </Grid>
             </Grid>
-        </PresetsWrapper>
+        </StateWrapper>
     )
 }

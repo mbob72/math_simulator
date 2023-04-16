@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import {Button} from "@mui/material";
-import {PresetsContext} from "@/components/presets.context";
+import {StateContext} from "@/components/stateContext";
 import {Example} from "@/components/Example";
 
 export const Generator = () => {
@@ -9,7 +9,7 @@ export const Generator = () => {
         generate,
         setNum1, setNum2, _setAction, deleteExample,
         startLesson
-    } = useContext(PresetsContext);
+    } = useContext(StateContext);
 
     return (
         <>

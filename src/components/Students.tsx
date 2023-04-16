@@ -1,12 +1,12 @@
 import React, {useContext, useState} from "react";
-import {PresetsContext} from "@/components/presets.context";
+import {StateContext} from "@/components/stateContext";
 import {MenuItem, TextField} from "@mui/material";
 import {AgGridReact} from "ag-grid-react";
 
 
 
 export  function Students() {
-    const { students, setInLesson, lessons } = useContext(PresetsContext);
+    const { students, setInLesson, lessons } = useContext(StateContext);
 
     const [lessonToShow, setLessonToShow] = useState(0);
 

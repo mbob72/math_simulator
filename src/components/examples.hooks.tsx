@@ -1,7 +1,7 @@
 import {useState} from "react";
 
 
-export const usePresets = () => {
+export const useExamples = () => {
     const [min, _setMin] = useState(0);
     const [max, _setMax] = useState(100);
     const [action, _setAction] = useState('+')
@@ -94,52 +94,6 @@ export const usePresets = () => {
         setExamples(exs => [...exs.slice(0, i), ...exs.slice(i +1)])
     }
 
-    const [lessons, setLesson] = useState([]);
-
-    const startLesson = () => {
-        setLesson(lessons.concat([examples.map((example, i) => ({
-            example,
-            status: {
-                id: i,
-                shown: false,
-                done: false,
-                correct: false
-            }
-        }))]))
-    }
-
-    const [students, setStudents] = useState([{
-        name: 'Anna',
-        inLesson: false,
-        correctAnswers: 0,
-        wrongAnswers: 0,
-        done: false
-    }, {
-        name: 'Mike',
-        inLesson: false,
-        correctAnswers: 0,
-        wrongAnswers: 0,
-        done: false
-    }, {
-        name: 'Olga',
-        inLesson: false,
-        correctAnswers: 0,
-        wrongAnswers: 0,
-        done: false
-    }]);
-
-    const setInLesson = (_name, val) => {
-        if(students.find(({ name }) => name === _name).inLesson !== val) {
-            setStudents(students => students.map((student) => student.name === _name
-                            ? {
-                                ...student,
-                                inLesson: val
-                            }
-                            : student
-                    ))
-        }
-    }
-
     return {
         min,
         max,
@@ -156,11 +110,7 @@ export const usePresets = () => {
         generate,
         examples,
         list,
-        setNum1, setNum2, _setAction: __setAction, deleteExample,
-        startLesson,
-        lessons,
-        students,
-        setInLesson
+        setNum1, setNum2, _setAction: __setAction, deleteExample
     }
 }
 
