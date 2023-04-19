@@ -9,15 +9,15 @@ const common = [
             <><span>{a}</span> <span>{act}</span> <span>{b}</span> <span>=</span> <span>?</span></>
         )
     },
-    { field: 'result', headerName: 'Result', type: 'number', width: 80, pinned: 'left'  },
+    { field: 'result', headerName: 'Result', type: 'numericColumn', width: 80, pinned: 'left'  },
 ];
 
-const forStudent = { field: 'answer', headerName: 'Res., if shown, time', type: 'number', width: 200,
+const forStudent = { field: 'answer', headerName: 'Res., if shown, time', type: 'numericColumn', width: 200,
         cellRenderer: ({ value: { response, isShown, time} }) =>
             <div
                 className={'grid gap-4 grid-cols-3 grid-rows-1 content-evenly items-center'}
             >
-                <span>{response}</span><input className={'h-4'} type={'checkbox'} checked={isShown} /><span>{time}</span>
+                <span>{response}</span><input className={'h-4'} type={'checkbox'} readOnly checked={isShown} /><span>{time}</span>
             </div>
     }
 

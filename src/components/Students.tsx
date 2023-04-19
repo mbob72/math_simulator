@@ -12,14 +12,14 @@ export  function Students() {
 
     const columns = [
         { field: 'name', headerName: 'Name', width: 100 },
-        { field: 'inLesson', headerName: 'Going', type: 'boolean',width: 80, cellRenderer: ({ value, data: { name } } ) => (
+        { field: 'inLesson', headerName: 'Going', width: 80, cellRenderer: ({ value, data: { name } } ) => (
                 <input type={'checkbox'} checked={!!value} onChange={() => setInLesson(name, !value)}></input>
             )
         },
-        { field: 'correctAnswers', headerName: 'Correct', type: 'number', width: 80 },
-        { field: 'wrongAnswers', headerName: 'Wrong', type: 'number', width: 80 },
-        { field: 'done', headerName: 'Fulfilled', type: 'boolean',width: 80, cellRenderer: ({ value, data: { name } } ) => (
-                <input type={'checkbox'} checked={!!value} disabled></input>
+        { field: 'correctAnswers', headerName: 'Correct', type: 'numericColumn', width: 80 },
+        { field: 'wrongAnswers', headerName: 'Wrong', type: 'numericColumn', width: 80 },
+        { field: 'done', headerName: 'Fulfilled', width: 80, cellRenderer: ({ value, data: { name } } ) => (
+                <input type={'checkbox'} checked={!!value} readOnly disabled></input>
             )},
     ];
 
