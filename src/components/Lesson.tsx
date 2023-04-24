@@ -1,11 +1,17 @@
 import {AgGridReact} from "ag-grid-react";
-import React, {useContext} from "react";
-import {LessonLive, Student} from "@/components/lessons.hooks";
+import React from "react";
 import {ColDef} from "ag-grid-community";
 import {Button} from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import {StateContext} from "@/components/stateContext";
 import {Checkbox} from "@mui/joy";
+import {
+    allStudentsCheckedSelector,
+    lessonsSlice, mixStudentsCheckedSelector,
+    selectLesson,
+    studentCheckedSelector
+} from "@/store/lessons.slice";
+import {Student} from "@/store/students.slice";
+import {useAppDispatch, useAppSelector} from "@/store";
 
 const fakeAnswers = (students, example) => students.reduce((memo, { name }, i) => ({
     ...memo,
@@ -15,13 +21,12 @@ const fakeAnswers = (students, example) => students.reduce((memo, { name }, i) =
         time: i + 45
     }}), {})
 
-export type LessonProps = { lesson: LessonLive; columns: ColDef[]; students: Student[] }
-export const Lesson = ({ lesson, columns }: LessonProps) => {
-    const { liveExamples, lessonStatus: { status, students: lessonStudents } } = lesson;
-    const { students, studentChecked, studentChange,
-        lunchLesson, allStudentsChecked, mixStudentsChecked, handleChangeAdd} = useContext(StateContext);
-
-
+export type LessonProps = { columns: ColDef[]; students: Student[]; id: number; ind: number }
+export const Lesson = ({ columns, students, id, ind }: LessonProps) => {
+    const { liveExamples, lessonStatus: { status, students: lessonStudents } } = useAppSelector(store => selectLesson(store, ind));
+    const allStudentsChecked = useAppSelector(store => allStudentsCheckedSelector(store, ind));
+    const mixStudentsChecked = useAppSelector(store => mixStudentsCheckedSelector(store, ind));
+    const dispatch = useAppDispatch();
     return (
         <>
             <div
@@ -41,33 +46,43 @@ export const Lesson = ({ lesson, columns }: LessonProps) => {
                 switch(status) {
                     case 'setup':
                         return <>
-                            <Button onClick={lunchLesson(lesson)}>Lunch lesson</Button>
+                            <Button onClick={() => dispatch(lessonsSlice.actions.lunchLesson(ind))}>Lunch lesson</Button>
                             <h3>To Lesson::</h3><br/>
                             {lessonStudents.length > 1 && <Checkbox
                                 label="All students"
-                                checked={allStudentsChecked(lesson)}
-                                indeterminate={mixStudentsChecked(lesson)}
-                                onChange={handleChangeAdd(lesson)}
+                                checked={allStudentsChecked}
+                                indeterminate={mixStudentsChecked}
+                                onChange={() => {
+                                    dispatch(lessonsSlice.actions.handleChangeAll({ ind, allStudentsChecked }))
+                                }}
                             />}
-                            {lessonStudents.length && lessonStudents.map(student => (<Grid key={student.name}>
-                                    <Checkbox
-                                        label={student.name}
-                                        checked={studentChecked(student.name, lesson)}
-                                        onChange={studentChange(student.name, lesson)}
-                                    />
-                                </Grid>
-                            ))}
+                            {lessonStudents.length && lessonStudents.map(student => <Student key={student.name} student={student} ind={ind} />)}
                             </>
                     case 'inProgress':
                         return <>
-                            <Button onClick={lunchLesson(lesson)}>Make break</Button>
-                            <Button onClick={lunchLesson(lesson)}>Finish</Button>
-                            {lessonStudents.length && lessonStudents.filter(({ status }) => status === 'started').map(st => <div key={st.name}>{st.name}</div>)}
+                            <Button onClick={() => lessonsSlice.actions.lunchLesson( ind )}>Make break</Button>
+                            <Button onClick={() => lessonsSlice.actions.lunchLesson( ind )}>Finish</Button>
+                            {lessonStudents.length &&
+                                lessonStudents.filter(({ status }) => status === 'started').map(st => <div key={st.name}>{st.name}</div>)}
                         </>
                     default:
                         return ''
                 }
             })()}
         </>
+    )
+}
+
+const Student = ({ student, ind }) => {
+    const checked = useAppSelector(store => studentCheckedSelector(store, ind, student.name));
+    const dispatch = useAppDispatch();
+    return (
+        <Grid key={student.name}>
+            <Checkbox
+                label={student.name}
+                checked={checked}
+                onChange={() => dispatch(lessonsSlice.actions.studentInLessonChange({ studentName: student.name, idLesson: ind }))}
+            />
+        </Grid>
     )
 }

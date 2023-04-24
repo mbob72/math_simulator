@@ -1,19 +1,24 @@
-import React, {useContext, useState} from "react";
-import {StateContext} from "@/components/stateContext";
+import React, {useState} from "react";
 import {MenuItem, TextField} from "@mui/material";
 import {AgGridReact} from "ag-grid-react";
-
+import {useAppDispatch, useAppSelector} from "@/store";
+import {studentsSelector} from "@/store/students.slice";
+import {studentsSlice} from "@/store/students.slice";
+import {selectLessonsSelector} from "@/store/lessons.slice";
 
 
 export  function Students() {
-    const { students, setInLesson, lessons } = useContext(StateContext);
-
+    const students = useAppSelector(studentsSelector);
+    const lessons = useAppSelector(selectLessonsSelector);
+    const dispatch = useAppDispatch();
     const [lessonToShow, setLessonToShow] = useState(0);
 
     const columns = [
         { field: 'name', headerName: 'Name', width: 100 },
         { field: 'inLesson', headerName: 'Going', width: 80, cellRenderer: ({ value, data: { name } } ) => (
-                <input type={'checkbox'} checked={!!value} onChange={() => setInLesson(name, !value)}></input>
+                <input type={'checkbox'} checked={!!value}
+                       onChange={() => dispatch(studentsSlice.actions.setInLesson({ name, val: !value }))}
+                ></input>
             )
         },
         { field: 'correctAnswers', headerName: 'Correct', type: 'numericColumn', width: 80 },

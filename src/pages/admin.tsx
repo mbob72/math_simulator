@@ -1,6 +1,6 @@
 import Grid from '@mui/material/Unstable_Grid2';
 import {Presets} from "@/components/Presets";
-import {StateWrapper} from "@/components/stateContext";
+import {ReduxWrapper} from "@/components/ReduxWrapper";
 import {Generator} from "@/components/Generator";
 import {Lessons} from "@/components/Lessons";
 import {Students} from "@/components/Students";
@@ -10,7 +10,7 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 
 export default function Home() {
     return (
-        <StateWrapper >
+        <ReduxWrapper >
             <Grid container spacing={2}>
                 <Grid xs={12} md={8}>
                     <Lessons />
@@ -25,6 +25,6 @@ export default function Home() {
                     <Generator />
                 </Grid>
             </Grid>
-        </StateWrapper>
+        </ReduxWrapper>
     )
 }
