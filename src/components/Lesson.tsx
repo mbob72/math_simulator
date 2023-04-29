@@ -12,6 +12,8 @@ import {
 } from "@/store/lessons.slice";
 import {Student} from "@/store/students.slice";
 import {useAppDispatch, useAppSelector} from "@/store";
+import LinearDeterminate from "@/components/Progress";
+import LessonDiagram from "@/components/Timeline"
 
 const fakeAnswers = (students, example) => students.reduce((memo, { name }, i) => ({
     ...memo,
@@ -60,10 +62,13 @@ export const Lesson = ({ columns, students, id, ind }: LessonProps) => {
                             </>
                     case 'inProgress':
                         return <>
+                            <LinearDeterminate />
+                            {lessonStudents.length &&
+                                lessonStudents.filter(({ status }) => status === 'started').map(st => <div key={st.name}>
+                                    {st.name}<LessonDiagram />
+                                </div>)}
                             <Button onClick={() => lessonsSlice.actions.lunchLesson( ind )}>Make break</Button>
                             <Button onClick={() => lessonsSlice.actions.lunchLesson( ind )}>Finish</Button>
-                            {lessonStudents.length &&
-                                lessonStudents.filter(({ status }) => status === 'started').map(st => <div key={st.name}>{st.name}</div>)}
                         </>
                     default:
                         return ''
