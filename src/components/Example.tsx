@@ -30,7 +30,7 @@ export const Example = ({ num1, num2, action, result, hash, ind  }: ExampleProps
             </Grid>
             <div className={'text-center translate-y-1.5'}>= {result}</div>
             <DeleteForeverIcon
-                className={'translate-y-1 cursor-pointer'}
+                className={'translate-y-1 justify-self-end cursor-pointer'}
                 onClick={() => dispatch(examplesSlice.actions.deleteExample({ uuid: hash }))}
             />
         </div>
