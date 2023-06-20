@@ -4,6 +4,7 @@ import {Lesson} from "@/components/Lesson";
 import {useAppSelector} from "@/store";
 import {studentsSelector} from "@/store/students.slice";
 import {selectLessonsSelector} from "@/store/lessons.slice";
+import {Typography} from "@material-ui/core";
 
 const common = [
     { field: 'id', headerName: '№', width: 20, pinned: 'left' },
@@ -39,9 +40,9 @@ export const Lessons = () => {
 
     return (
         <Grid className={'overflow-scroll'}>
-            <h3 >Lessons</h3>
+            <Typography variant={'h4'} className={'text-center mb-2'} >Lessons </Typography>
             {lessons.length && lessons.map((lesson, i) =>
-                 <Lesson key={lesson.id} {...{ lesson, columns, students, id: lesson.id, ind: i }} />)}
+                 <Lesson key={lesson.id} {...{ lesson, columns, students, id: lesson.id, ind: i }} />) || null}
         </Grid>
     )
 }

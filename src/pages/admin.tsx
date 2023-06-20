@@ -7,10 +7,13 @@ import {Students} from "@/components/Students";
 
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
+import {ThemeProvider} from "@material-ui/core/styles";
+import {theme} from "@/theme/theme";
 
 export default function Home() {
     return (
         <ReduxWrapper >
+            <ThemeProvider theme={theme} >
             <Grid container spacing={2}>
                 <Grid xs={12} md={8}>
                     <Lessons />
@@ -25,6 +28,7 @@ export default function Home() {
                     <Generator />
                 </Grid>
             </Grid>
+                </ThemeProvider>
         </ReduxWrapper>
     )
 }

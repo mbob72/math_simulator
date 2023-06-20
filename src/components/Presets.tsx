@@ -2,6 +2,8 @@ import React from "react";
 import {Preset} from "@/components/Preset";
 import {useAppDispatch, useAppSelector} from "@/store";
 import {currentPresets, generatorPresetSlice} from "@/store/generatorPreset.slice";
+import {Typography} from "@material-ui/core/";
+import ControlPointIcon from '@mui/icons-material/ControlPoint';
 
 const { actions } = generatorPresetSlice;
 
@@ -16,7 +18,7 @@ export const Presets = () => {
 
     return (
         <>
-            <h3 >Generator preset</h3>
+            <Typography variant={'h4'} className={'text-center mb-8'} >Generator preset</Typography>
             <Preset
                 values={{
                     min,
@@ -30,7 +32,7 @@ export const Presets = () => {
                 }}
                 makePreset={() => dispatch(actions.makePreset({ min, max, action }))}
             />
-            {list.length && <h1>Presets</h1>}
+            {list.length && <Typography variant={'h5'} className={'text-center m-8'} >Presets</Typography> || null}
             {list.length &&
                 list.map(({
                               min,
@@ -62,7 +64,7 @@ export const Presets = () => {
                             setUp={setIUp(hash)}
                         />
                     )
-                })}
+                }) || null}
             </>
 
     )

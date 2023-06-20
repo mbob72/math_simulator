@@ -1,9 +1,10 @@
 import {AgGridReact} from "ag-grid-react";
-import React from "react";
+import React, {useEffect} from "react";
 import {ColDef} from "ag-grid-community";
-import {Button} from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import {Checkbox} from "@mui/joy";
+
+import Button from '@material-ui/core/Button';
 import {
     allStudentsCheckedSelector,
     lessonsSlice, mixStudentsCheckedSelector,
@@ -14,6 +15,7 @@ import {Student} from "@/store/students.slice";
 import {useAppDispatch, useAppSelector} from "@/store";
 import LinearDeterminate from "@/components/Progress";
 import LessonDiagram from "@/components/Timeline"
+import {Countdown} from "@/components/Timer";
 
 const fakeAnswers = (students, example) => students.reduce((memo, { name }, i) => ({
     ...memo,
@@ -29,6 +31,23 @@ export const Lesson = ({ columns, students, id, ind }: LessonProps) => {
     const allStudentsChecked = useAppSelector(store => allStudentsCheckedSelector(store, ind));
     const mixStudentsChecked = useAppSelector(store => mixStudentsCheckedSelector(store, ind));
     const dispatch = useAppDispatch();
+    useEffect(() => {
+        let lessons = localStorage.getItem('lessons') ? JSON.parse(localStorage.getItem('lessons')) : {};
+        lessons = {
+            ...lessons,
+            [id]: liveExamples
+        }
+        localStorage.setItem('lessons', JSON.stringify(lessons))
+    }, [liveExamples])
+
+    useEffect(() => {
+        let lessonsStatus = localStorage.getItem('statuses') ? JSON.parse(localStorage.getItem('statuses')) : {};
+        lessonsStatus = {
+            ...lessonsStatus,
+            [id]: status
+        }
+        localStorage.setItem('statuses', JSON.stringify(lessonsStatus))
+    }, [status])
     return (
         <>
             <div
@@ -69,6 +88,10 @@ export const Lesson = ({ columns, students, id, ind }: LessonProps) => {
                                 </div>)}
                             <Button onClick={() => lessonsSlice.actions.lunchLesson( ind )}>Make break</Button>
                             <Button onClick={() => lessonsSlice.actions.lunchLesson( ind )}>Finish</Button>
+                            <Countdown
+                                timeTillDate="05 26 2019, 6:00 am"
+                                timeFormat="MM DD YYYY, h:mm a"
+                            />,
                         </>
                     default:
                         return ''

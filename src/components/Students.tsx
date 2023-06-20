@@ -5,6 +5,7 @@ import {useAppDispatch, useAppSelector} from "@/store";
 import {studentsSelector} from "@/store/students.slice";
 import {studentsSlice} from "@/store/students.slice";
 import {selectLessonsSelector} from "@/store/lessons.slice";
+import {Typography} from "@material-ui/core";
 
 
 export  function Students() {
@@ -30,7 +31,7 @@ export  function Students() {
 
     return (
         <div style={{ height: 400, width: '100%' }}>
-            <h3>Students list</h3>
+            <Typography variant={'h4'} className={'text-center m-2'} >Students list </Typography>
             {lessons.length && (
                 <TextField
                     id="outlined-select-currency"
