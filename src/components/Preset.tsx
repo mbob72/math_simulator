@@ -1,17 +1,24 @@
-import Grid from "@mui/material/Unstable_Grid2";
 import React from "react";
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import {Actions} from "@/components/Actions";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import WifiProtectedSetupIcon from '@mui/icons-material/WifiProtectedSetup';
 
-type PresetProps = { values: unknown, handlers: any, } & ({ makePreset?: () => {} } | { deleteItem: (a: number) => {}; num: number; setUp: (a: number) => {} })
-export const Preset = ({ values, handlers, makePreset, deleteItem, num, setUp }: PresetProps) => {
+export type GenerateComp = { min: number; max: number; action: string }
+type PresetCase = { makePreset: () => {} }
+type PlaneCase = { deleteItem: (a: number) => {}; num: number; setUp: (a: number) => {}; }
+type ValsHandlers = { values: GenerateComp; handlers: { [key: string]: () => undefined, }}
+type PresetProps1 = ValsHandlers & PresetCase;
+type PresetProps2 = ValsHandlers & PlaneCase;
+
+function isPresetCase(a: PresetCase | PlaneCase): a is PresetCase {
+    return !!(a as PresetCase).makePreset;
+}
+
+export const Preset = ({ values, handlers, ...rest }: PresetProps1 | PresetProps2) => {
     return (
         <div className={'grid grid-flow-col grid-cols-[repeat(6,60px)] items-center justify-center text-center m-2'}>
-            {makePreset && <span></span>}
                 <Actions action={values.action} setAction={handlers.setAction}/>
 
                 <TextField label="Min"  value={values.min}
@@ -19,14 +26,14 @@ export const Preset = ({ values, handlers, makePreset, deleteItem, num, setUp }:
                 <TextField label="Max"  value={values.max}
                            onChange={handlers.setMax}/>
 
-                {makePreset
-                    ? <ControlPointIcon className={'col-start-5 col-end-5'} onClick={makePreset}/>
-                    : <><div className={'col-start-1 col-end-1 text-center'}> {num}</div>
+                {(isPresetCase(rest))
+                    ? <ControlPointIcon className={'col-start-5 col-end-5'} onClick={rest.makePreset}/>
+                    : <><div className={'col-start-1 col-end-1 text-center'}> {rest.num}</div>
                         <WifiProtectedSetupIcon onClick={() => {
-                            setUp(num);
+                            rest.setUp(rest.num);
                         }}/>
                         <DeleteForeverIcon onClick={() => {
-                            deleteItem(num);
+                            rest.deleteItem(rest.num);
                         }} />
                     </>
                 }
