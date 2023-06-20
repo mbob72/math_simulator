@@ -1,7 +1,6 @@
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import React, {useEffect, useState} from "react";
-import {makeStyles, MenuItem} from "@material-ui/core";
+import {MenuItem} from "@material-ui/core";
+import {ActionInput} from "@/components/ui-lib/ActionInput";
 
 const currencies = [
     {
@@ -22,29 +21,20 @@ const currencies = [
     },
 ];
 
-const useStyles = makeStyles({
-    root: {
-        '& .MuiInputBase-root': {
-            width: 30
-        }
-    },
-});
-export const Actions = ({ action = '+', setAction }) => {
+export type ActionsType = '+' | '-' | '*' | '/'
+
+export const Actions = ({ action = '+', setAction = (_a: ActionsType) => { } }) => {
     const [act, setAct] = useState(action);
     useEffect(() => {
         setAct(action);
     }, [action])
-    const { root } = useStyles();
-    return (
-        <TextField
-            select
-            label="Do"
-            value={act}
 
-            classes={{
-                root
-            }}
-            onChange={(e) => {setAction(e.target.value); setAct(e.target.value)}}
+    return (
+        <ActionInput
+            select
+            label="do"
+            value={act}
+            onChange={(e) => {setAction(e.target.value as ActionsType); setAct(e.target.value)}}
             helperText=""
         >
             {currencies.map((option) => (
@@ -52,6 +42,6 @@ export const Actions = ({ action = '+', setAction }) => {
                     {option.label}
                 </MenuItem>
             ))}
-        </TextField>
+        </ActionInput>
     )
 }
