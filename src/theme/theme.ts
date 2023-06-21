@@ -1,6 +1,6 @@
 import React from 'react';
-import { createTheme, ThemeProvider, ThemeOptions } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import { createTheme, ThemeProvider, ThemeOptions } from '@mui/material/styles';
+import Button from '@mui/material/Button';
 
 export const theme = createTheme({
     overrides: {

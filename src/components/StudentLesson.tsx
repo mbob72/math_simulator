@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {LiveExample} from "@/store/lessons.slice";
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 
 export const StudentLesson = () => {
     const [currentExamples, setCurrentExamples] = useState([])

@@ -3,6 +3,7 @@ import {
 } from '@reduxjs/toolkit'
 import {hash} from "@/store/lib";
 import {RootState} from "@/store/index";
+import {ActionsType} from "@/components/Actions";
 
 function updateItemInArray(state, ind, val, propName) {
     const newItem = {
@@ -23,7 +24,7 @@ export const generatorPresetSlice = createSlice({
     initialState: {
         min: 0,
         max: 10,
-        action: '+',
+        action: '+' as ActionsType,
         list: []
     },
     reducers: {
@@ -50,7 +51,7 @@ export const generatorPresetSlice = createSlice({
             list.push({
                 min,
                 max,
-                action,
+                action: action as ActionsType,
                 hash: hash({ min, max, action })
             })
         },

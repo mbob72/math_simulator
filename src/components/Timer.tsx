@@ -1,7 +1,7 @@
 // https://www.florin-pop.com/blog/2019/05/countdown-built-with-react/
 import React from 'react';
 import './Timer.css'
-import {Typography, TypographyProps} from "@material-ui/core/";
+import {Typography, TypographyProps} from "@mui/material/";
 export class Countdown extends React.PureComponent<any, any> {
     state = {
         days: undefined,

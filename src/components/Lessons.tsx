@@ -4,7 +4,7 @@ import {Lesson} from "@/components/Lesson";
 import {useAppSelector} from "@/store";
 import {studentsSelector} from "@/store/students.slice";
 import {selectLessonsSelector} from "@/store/lessons.slice";
-import {Typography} from "@material-ui/core";
+import {Typography} from "@mui/material";
 
 const common = [
     { field: 'id', headerName: '№', width: 20, pinned: 'left' },
@@ -19,7 +19,7 @@ const forStudent = {
     field: 'answer',
     headerName: 'Res., if shown, time',
     type: 'numericColumn', width: 200,
-    cellRenderer: ({ value: { response, isShown, time} }) =>
+    cellRenderer: ({ value: { response, isShown, time } }) =>
         <div
             className={'grid gap-4 grid-cols-3 grid-rows-1 content-evenly items-center'}
         >

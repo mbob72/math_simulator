@@ -1,32 +1,31 @@
-import TextField from "@material-ui/core/TextField";
+import TextField from "@mui/material/TextField";
 import React from "react";
-import {TextFieldProps} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core";
+import {TextFieldProps} from "@mui/material";
+import {styled} from "@mui/material/styles";
 
-const useStyles = makeStyles({
-    root: {
-        '& .MuiInputBase-root': {
-            width: 30,
-        },
-        '& .MuiInputBase-input': {
-            textAlign: 'center'
-        },
-        '& .MuiInputLabel-root': {
-            textAlign: 'center',
-            left: '50%',
-            transform: 'translate(-50%, 0) scale(0.75)'
-        }
-    },
-});
-
-export const InputNums = (props: TextFieldProps) => {
-    const classes = useStyles();
-
+export const _InputNums = (props: TextFieldProps) => {
     return (
         <TextField
+            variant={'standard'}
             {...props }
-            classes={classes}
         />
     )
 }
+
+export const InputNums = styled(_InputNums)`
+    width: 30px;
+  
+    & .MuiInputBase-root {
+       width: 30px;
+    }
+    & .MuiInputBase-input {
+       text-align: center
+    }
+    & .MuiInputLabel-root {
+       text-align: center;
+       left: 50%;
+       transform: translate(-37%, 0) scale(0.75)
+    }
+`
+
 

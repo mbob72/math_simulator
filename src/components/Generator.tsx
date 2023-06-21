@@ -1,13 +1,14 @@
 import React from "react";
 
-import Button from '@material-ui/core/Button';
+import Button from '@mui/material/Button';
 import {Example} from "@/components/Example";
 import {examplesSelector, examplesSlice} from "@/store/examples.slice";
 import {lessonsSlice} from "@/store/lessons.slice";
 import {currentPresets} from "@/store/generatorPreset.slice";
 import {useAppDispatch, useAppSelector} from "@/store";
 import {studentsSelector} from "@/store/students.slice";
-import {Typography} from "@material-ui/core";
+import {Typography} from "@mui/material";
+import {ActionsType} from "@/components/Actions";
 
 export const Generator = () => {
     const examples = useAppSelector(examplesSelector);
@@ -29,7 +30,7 @@ export const Generator = () => {
                 const [mn1, mn2, res, action, hash] = a;
                 return (
                     <Example key={i}
-                             {...{ num1: mn1, num2: mn2, action, result: res, hash, ind: i }} />
+                             {...{ num1: mn1, num2: mn2, action: action as ActionsType, result: res, hash, ind: i }} />
                 )
             }) || null
             }

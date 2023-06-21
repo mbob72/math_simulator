@@ -4,7 +4,7 @@ import {ColDef} from "ag-grid-community";
 import Grid from "@mui/material/Unstable_Grid2";
 import {Checkbox} from "@mui/joy";
 
-import Button from '@material-ui/core/Button';
+import Button from '@mui/material/Button';
 import {
     allStudentsCheckedSelector,
     lessonsSlice, mixStudentsCheckedSelector,

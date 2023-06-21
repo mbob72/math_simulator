@@ -5,7 +5,7 @@ import {useAppDispatch, useAppSelector} from "@/store";
 import {studentsSelector} from "@/store/students.slice";
 import {studentsSlice} from "@/store/students.slice";
 import {selectLessonsSelector} from "@/store/lessons.slice";
-import {Typography} from "@material-ui/core";
+import {Typography} from "@mui/material";
 
 
 export  function Students() {

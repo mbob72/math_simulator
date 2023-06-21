@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {MenuItem} from "@material-ui/core";
+import {MenuItem} from "@mui/material";
 import {ActionInput} from "@/components/ui-lib/ActionInput";
 
 const currencies = [

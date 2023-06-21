@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 
 // a mock function to check if the user is authenticated
 const checkAuth = () => {

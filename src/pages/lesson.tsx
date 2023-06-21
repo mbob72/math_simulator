@@ -1,7 +1,7 @@
 import {StudentLesson} from "@/components/StudentLesson";
 import {Countdown} from "@/components/Timer";
 import React from "react";
-import {ThemeProvider} from "@material-ui/core/styles";
+import {ThemeProvider} from "@mui/material/styles";
 import { theme } from "@/theme/theme";
 
 const newTime = new Date(new Date().getTime() + 20*60000);

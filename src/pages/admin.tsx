@@ -7,7 +7,7 @@ import {Students} from "@/components/Students";
 
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-import {ThemeProvider} from "@material-ui/core/styles";
+import {ThemeProvider} from "@mui/material/styles";
 import {theme} from "@/theme/theme";
 
 export default function Home() {
