@@ -12,8 +12,6 @@ type QuestExampleProps = {
 };
 
 export const QuestExample = ({num1, num2, action, result, hash, ind, checkResult}: QuestExampleProps) => {
-    const dispatch = useAppDispatch();
-    const [res, setRes] = useState('');
     const [success, setSuccess] = useState(false);
     const [disabled, setDisabled] = useState(false);
 
@@ -34,7 +32,6 @@ export const QuestExample = ({num1, num2, action, result, hash, ind, checkResult
     const value = watch(name);
 
     const putRes = useCallback(async () => {
-        await new Promise(res => setTimeout(res, 2000));
         if(result == value) {
             setSuccess(true);
             setDisabled(true);
@@ -42,7 +39,6 @@ export const QuestExample = ({num1, num2, action, result, hash, ind, checkResult
         }
         setError(name, { message: ' '})
         await new Promise(res => setTimeout(res, 5000));
-        setValue(name, '');
         clearErrors(name);
     }, [value, handleSubmit, name, setError, setValue, setSuccess])
 
@@ -71,6 +67,7 @@ export const QuestExample = ({num1, num2, action, result, hash, ind, checkResult
                         helperText={error ? error.message : null}
                         error={!!error}
                         disabled={disabled}
+                        onFocus={() => clearErrors(name)}
                         onChange={onChange}
                         value={value}
                     />)}
