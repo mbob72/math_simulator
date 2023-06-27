@@ -21,7 +21,7 @@ const StudentAuthPage = () => {
         if (isAuthenticated) {
             router.push('/lesson')
         }
-    }, [])
+    }, [router])
 
     const handleSubmit = (e) => {
         e.preventDefault()

@@ -16,8 +16,9 @@ import {useAppDispatch, useAppSelector} from "@/store";
 import LinearDeterminate from "@/components/Progress";
 import LessonDiagram from "@/components/Timeline"
 import {Countdown} from "@/components/Timer";
+import {Example} from "@/store/examples.slice";
 
-const fakeAnswers = (students, example) => students.reduce((memo, { name }, i) => ({
+const fakeAnswers = (students: any[], example: Example) => students.reduce((memo, { name }, i) => ({
     ...memo,
     ['answer' + name]: {
         response: i % 2 ? example[2] : example[2] + 3,
@@ -32,22 +33,22 @@ export const Lesson = ({ columns, students, id, ind }: LessonProps) => {
     const mixStudentsChecked = useAppSelector(store => mixStudentsCheckedSelector(store, ind));
     const dispatch = useAppDispatch();
     useEffect(() => {
-        let lessons = localStorage.getItem('lessons') ? JSON.parse(localStorage.getItem('lessons')) : {};
+        let lessons = localStorage.getItem('lessons') ? JSON.parse(String(localStorage.getItem('lessons'))) : {};
         lessons = {
             ...lessons,
             [id]: liveExamples
         }
         localStorage.setItem('lessons', JSON.stringify(lessons))
-    }, [liveExamples])
+    }, [liveExamples, id])
 
     useEffect(() => {
-        let lessonsStatus = localStorage.getItem('statuses') ? JSON.parse(localStorage.getItem('statuses')) : {};
+        let lessonsStatus = localStorage.getItem('statuses') ? JSON.parse(String(localStorage.getItem('statuses'))) : {};
         lessonsStatus = {
             ...lessonsStatus,
             [id]: status
         }
         localStorage.setItem('statuses', JSON.stringify(lessonsStatus))
-    }, [status])
+    }, [status, id])
     return (
         <>
             <div
@@ -101,7 +102,7 @@ export const Lesson = ({ columns, students, id, ind }: LessonProps) => {
     )
 }
 
-const Student = ({ student, ind }) => {
+const Student = ({ student, ind }: any) => {
     const checked = useAppSelector(store => studentCheckedSelector(store, ind, student.name));
     const dispatch = useAppDispatch();
     return (

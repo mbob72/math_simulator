@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Provider } from 'react-redux';
 import store  from '../store'
 
-import { Button } from './Button';
-import {Example} from "../components/Example";
+import { Button } from '../stories/Button';
+import {Example} from "./Example";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 const meta: Meta<typeof Example> = {
@@ -24,7 +24,7 @@ export const Primary: Story = {
         num2: 4,
         action: '+',
         result: 6,
-        hash: 'kjlkjl',
+        hash: 'hash',
         ind: 4
     },
 };
