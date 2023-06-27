@@ -1,8 +1,6 @@
 import {useAppDispatch} from "@/store";
-import Grid from "@mui/material/Unstable_Grid2";
 import {InputNums} from "@/components/ui-lib/InputNums";
-import {examplesSlice} from "@/store/examples.slice";
-import {Actions, ActionsType} from "@/components/Actions";
+import {ActionsType} from "@/components/Actions";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import React, {useCallback, useMemo, useState} from "react";
 import { useForm, Controller } from 'react-hook-form';
@@ -21,14 +19,12 @@ export const QuestExample = ({num1, num2, action, result, hash, ind, checkResult
 
     const name = useMemo(() => `result_${ind}`, [ind, hash]);
     const {
-        register,
         control,
         handleSubmit,
         watch,
         setError,
         clearErrors,
         setValue,
-        setFocus,
         formState: { errors },
     } = useForm({
         defaultValues: {
