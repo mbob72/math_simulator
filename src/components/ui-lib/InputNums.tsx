@@ -20,6 +20,9 @@ export const InputNums = styled((props: TextFieldProps & { success: boolean }) =
         color: success && theme.palette.success.main || error && theme.palette.error.main || 'unset',
         '-webkit-text-fill-color': success && theme.palette.success.main
     },
+    '& .Mui-focused .MuiInputBase-input': {
+        color: theme.palette.primary.main,
+    },
     '& .MuiInput-root:after': {
         borderBottomColor: success && theme.palette.success.main
     },

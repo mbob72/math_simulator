@@ -5,13 +5,13 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import React, {useCallback, useMemo, useState} from "react";
 import { useForm, Controller } from 'react-hook-form';
 
-type QuestExampleProps = {
+export type QuestExampleProps = {
     num1: string | number, num2: string | number,
-    action: ActionsType, result: string | number, hash: string, ind: number,
-    checkResult: (res: string, hash: string) => {},
+    action: ActionsType, result: string | number, hash: string, ind: number;
+    checkResult: (a: { isCorrect: boolean; value?: string; hash: string }) => void;
 };
 
-export const QuestExample = ({num1, num2, action, result, hash, ind, checkResult}: QuestExampleProps) => {
+export const QuestExample = ({num1, num2, action, result, hash, ind, checkResult }: QuestExampleProps) => {
     const [success, setSuccess] = useState(false);
     const [disabled, setDisabled] = useState(false);
 
@@ -35,9 +35,11 @@ export const QuestExample = ({num1, num2, action, result, hash, ind, checkResult
         if(result == value) {
             setSuccess(true);
             setDisabled(true);
+            checkResult({ isCorrect: true, hash });
             return;
         }
         setError(name, { message: ' '})
+        checkResult({ isCorrect: false, value, hash });
         await new Promise(res => setTimeout(res, 5000));
         clearErrors(name);
     }, [value, handleSubmit, name, setError, setValue, setSuccess])
