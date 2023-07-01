@@ -40,8 +40,6 @@ export const QuestExample = ({num1, num2, action, result, hash, ind, checkResult
         }
         setError(name, { message: ' '})
         checkResult({ isCorrect: false, value, hash });
-        await new Promise(res => setTimeout(res, 5000));
-        clearErrors(name);
     }, [value, handleSubmit, name, setError, setValue, setSuccess])
 
     return (
@@ -69,8 +67,12 @@ export const QuestExample = ({num1, num2, action, result, hash, ind, checkResult
                         helperText={error ? error.message : null}
                         error={!!error}
                         disabled={disabled}
-                        onFocus={() => clearErrors(name)}
-                        onChange={onChange}
+                        onChange={(e) => {
+                            if(e.target.value != value) {
+                                clearErrors(name);
+                            }
+                            onChange(e);
+                        }}
                         value={value}
                     />)}
                 />

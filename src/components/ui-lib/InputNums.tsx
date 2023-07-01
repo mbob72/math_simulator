@@ -15,10 +15,11 @@ export const InputNums = styled((props: TextFieldProps & { success: boolean }) =
     '& .MuiInputBase-root': {
         width: 30,
     },
-    '& .MuiInputBase-input': {
+    '& .Mui-error.MuiInputBase-root .MuiInputBase-input, & .MuiInputBase-input.MuiInputBase-input': {
         textAlign: 'center',
-        color: success && theme.palette.success.main || error && theme.palette.error.main || 'unset',
-        '-webkit-text-fill-color': success && theme.palette.success.main
+        background: success && theme.palette.success.main,
+        color: success && theme.palette.primary.contrastText || error && theme.palette.error.main,
+        '-webkit-text-fill-color': success && theme.palette.primary.contrastText
     },
     '& .Mui-focused .MuiInputBase-input': {
         color: theme.palette.primary.main,
