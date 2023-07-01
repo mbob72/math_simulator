@@ -17,9 +17,8 @@ export const InputNums = styled((props: TextFieldProps & { success: boolean }) =
     },
     '& .Mui-error.MuiInputBase-root .MuiInputBase-input, & .MuiInputBase-input.MuiInputBase-input': {
         textAlign: 'center',
-        background: success && theme.palette.success.main,
-        color: success && theme.palette.primary.contrastText || error && theme.palette.error.main,
-        '-webkit-text-fill-color': success && theme.palette.primary.contrastText
+        color: success && theme.palette.success.main || error && theme.palette.error.main,
+        '-webkit-text-fill-color': success && theme.palette.success.main
     },
     '& .Mui-focused .MuiInputBase-input': {
         color: theme.palette.primary.main,
@@ -28,7 +27,8 @@ export const InputNums = styled((props: TextFieldProps & { success: boolean }) =
         borderBottomColor: success && theme.palette.success.main
     },
     '& .MuiInputBase-root.MuiInput-root:before': {
-        borderBottomColor: success && theme.palette.success.main
+        borderBottomColor: success && theme.palette.success.main,
+        borderBottomStyle: 'solid'
     },
     '& .MuiInputLabel-root': {
         textAlign: 'center',

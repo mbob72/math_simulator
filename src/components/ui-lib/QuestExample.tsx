@@ -1,9 +1,9 @@
-import {useAppDispatch} from "@/store";
 import {InputNums} from "@/components/ui-lib/InputNums";
 import {ActionsType} from "@/components/Actions";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import { CheckCircleOutline } from "@mui/icons-material";
 import React, {useCallback, useMemo, useState} from "react";
 import { useForm, Controller } from 'react-hook-form';
+import { useTheme } from '@mui/material/styles';
 
 export type QuestExampleProps = {
     num1: string | number, num2: string | number,
@@ -42,6 +42,8 @@ export const QuestExample = ({num1, num2, action, result, hash, ind, checkResult
         checkResult({ isCorrect: false, value, hash });
     }, [value, handleSubmit, name, setError, setValue, setSuccess])
 
+    const theme = useTheme();
+
     return (
         <form>
             <div
@@ -76,8 +78,9 @@ export const QuestExample = ({num1, num2, action, result, hash, ind, checkResult
                         value={value}
                     />)}
                 />
-                <ThumbUpIcon
-                    className={'justify-self-end cursor-pointer -scale-x-100 '}
+               <CheckCircleOutline
+                    className={'justify-self-end cursor-pointer'}
+                    color={errors[name] && 'error' || success && 'success' || 'inherit'}
                     onClick={putRes}
                 />
             </div>
