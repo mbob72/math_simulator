@@ -1,15 +1,19 @@
 import {InputNums} from "@/components/ui-lib/InputNums";
 import {ActionsType} from "@/components/Actions";
-import { CheckCircleOutlineRounded } from "@mui/icons-material";
+import { CheckCircleOutlineRounded as _CheckCircleOutlineRounded } from "@mui/icons-material";
 import React, {useCallback, useMemo, useState} from "react";
 import { useForm, Controller } from 'react-hook-form';
-import { useTheme } from '@mui/material/styles';
+import {styled, useTheme} from '@mui/material/styles';
 
 export type QuestExampleProps = {
     num1: string | number, num2: string | number,
     action: ActionsType, result: string | number, hash: string, ind: number;
     checkResult: (a: { isCorrect: boolean; value?: string; hash: string }) => void;
 };
+
+export const CheckCircleOutlineRounded = styled(_CheckCircleOutlineRounded)<{ disabled: boolean}>(({ disabled }) => ({
+    cursor: disabled ? 'unset' : 'pointer',
+}))
 
 export const QuestExample = ({num1, num2, action, result, hash, ind, checkResult }: QuestExampleProps) => {
     const [success, setSuccess] = useState(false);
@@ -47,7 +51,11 @@ export const QuestExample = ({num1, num2, action, result, hash, ind, checkResult
 
     return (
             <div
-                className={'grid grid-flow-col grid-cols-[repeat(4,20px)_30px_40px] items-center justify-center text-center'}>
+                className={`
+                grid grid-flow-col grid-cols-[repeat(4,20px)_30px_40px] grid-rows-[60px]
+                items-center justify-center text-center
+                min-h-10
+                `}>
                 <div>{num1}</div>
                 <div>{action}</div>
                 <div>{num2}</div>
@@ -79,9 +87,11 @@ export const QuestExample = ({num1, num2, action, result, hash, ind, checkResult
                     />)}
                 />
                <CheckCircleOutlineRounded
-                    className={'justify-self-end cursor-pointer'}
+                    className={'justify-self-end'}
+                    data-testid="ok-button"
+                    disabled={success}
                     color={errors[name] && 'error' || success && 'success' || focuse && 'primary' || 'inherit'}
-                    onClick={putRes}
+                    onClick={(e) => !success && putRes()}
                 />
             </div>
     )

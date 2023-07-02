@@ -7,6 +7,7 @@ export const InputNums = styled((props: TextFieldProps & { success: boolean }) =
     return (
         <TextField
             variant={'standard'}
+            inputProps={{ role: 'textbox' }}
             {...props}
         />
     )
