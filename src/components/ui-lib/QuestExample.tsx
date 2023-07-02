@@ -1,6 +1,6 @@
 import {InputNums} from "@/components/ui-lib/InputNums";
 import {ActionsType} from "@/components/Actions";
-import { CheckCircleOutline } from "@mui/icons-material";
+import { CheckCircleOutlineRounded } from "@mui/icons-material";
 import React, {useCallback, useMemo, useState} from "react";
 import { useForm, Controller } from 'react-hook-form';
 import { useTheme } from '@mui/material/styles';
@@ -14,6 +14,7 @@ export type QuestExampleProps = {
 export const QuestExample = ({num1, num2, action, result, hash, ind, checkResult }: QuestExampleProps) => {
     const [success, setSuccess] = useState(false);
     const [disabled, setDisabled] = useState(false);
+    const [focuse, setFocuse] = useState(false);
 
     const name = useMemo(() => `result_${ind}`, [ind, hash]);
     const {
@@ -45,9 +46,8 @@ export const QuestExample = ({num1, num2, action, result, hash, ind, checkResult
     const theme = useTheme();
 
     return (
-        <form>
             <div
-                className={'grid grid-flow-col grid-cols-[repeat(4,20px)_30px_40px] items-center justify-center text-center m-2'}>
+                className={'grid grid-flow-col grid-cols-[repeat(4,20px)_30px_40px] items-center justify-center text-center'}>
                 <div>{num1}</div>
                 <div>{action}</div>
                 <div>{num2}</div>
@@ -61,14 +61,14 @@ export const QuestExample = ({num1, num2, action, result, hash, ind, checkResult
                                  formState,
                              }) => (
                     <InputNums
-                        className={'-translate-y-1.5'}
-                        label="res"
                         type="number"
                         success={success}
                         autoComplete={'off'}
                         helperText={error ? error.message : null}
                         error={!!error}
                         disabled={disabled}
+                        onFocus={() => setFocuse(true)}
+                        onBlur={() => setFocuse(false)}
                         onChange={(e) => {
                             if(e.target.value != value) {
                                 clearErrors(name);
@@ -78,12 +78,11 @@ export const QuestExample = ({num1, num2, action, result, hash, ind, checkResult
                         value={value}
                     />)}
                 />
-               <CheckCircleOutline
+               <CheckCircleOutlineRounded
                     className={'justify-self-end cursor-pointer'}
-                    color={errors[name] && 'error' || success && 'success' || 'inherit'}
+                    color={errors[name] && 'error' || success && 'success' || focuse && 'primary' || 'inherit'}
                     onClick={putRes}
                 />
             </div>
-        </form>
     )
 }
