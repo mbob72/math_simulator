@@ -11,7 +11,7 @@ export const StudentLesson = ({ questExArr }: StudentLessonProps) => {
                 <QuestExample {...qE} key={ind} />
             ))}
         </div>
-            <Button className={'self-center justify-self-center'}>Start</Button>
+            <Button variant="outlined" className={'self-center justify-self-center'}>Start</Button>
     </div>
     )
 }
